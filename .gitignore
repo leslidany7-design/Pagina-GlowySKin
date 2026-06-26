@@ -96,7 +96,7 @@ web_modules/
 *.suo
 *.ntvsca
 *.ntvsap
-*.mjs
+!astro.config.mjs
 *.esproj
 
 # Production build
