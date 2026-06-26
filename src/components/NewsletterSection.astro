@@ -1,0 +1,68 @@
+---
+/**
+ * NewsletterSection.astro — Newsletter CTA with form
+ */
+---
+
+<span id="newsletter" class="block relative -top-24"></span>
+<section class="py-20 bg-white">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6">
+    <div class="bg-gradient-to-br from-glowy-pink-soft/8 via-white to-glowy-lavender/10 rounded-[2.5rem] p-8 sm:p-12 border border-glowy-pink-soft/15 flex flex-col md:flex-row items-center justify-between gap-8 relative overflow-hidden soft-shadow-md">
+
+      <!-- Ambient decoration -->
+      <div class="absolute right-0 top-0 w-44 h-44 bg-glowy-pink-soft/10 rounded-full blur-[60px] pointer-events-none"></div>
+      <div class="absolute left-0 bottom-0 w-32 h-32 bg-glowy-blue-light/15 rounded-full blur-[50px] pointer-events-none"></div>
+
+      <div class="w-full md:w-1/2 space-y-4 text-center md:text-left relative z-10">
+        <span class="inline-flex items-center px-4 py-1.5 rounded-full bg-white/80 text-[10px] font-bold uppercase tracking-[0.15em] text-glowy-pink-deep border border-glowy-pink-soft/15 soft-shadow-sm">
+          <svg class="w-3 h-3 mr-1.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+          Únete a la Comunidad
+        </span>
+        <h2 class="serif-title text-3xl text-slate-800 font-light mt-2">¿Deseas un 10% de descuento?</h2>
+        <p class="text-xs text-slate-500 font-light max-w-sm leading-relaxed">
+          Regístrate a nuestro boletín para consejos semanales de k-beauty y recibe un código de descuento único en tu primera compra.
+        </p>
+      </div>
+
+      <div class="w-full md:w-1/2 flex flex-col items-center md:items-end justify-center relative z-10">
+        <!-- Success state (hidden by default) -->
+        <div id="newsletter-success" class="hidden p-4 bg-white/90 rounded-2xl border border-emerald-200/40 items-center space-x-3 text-emerald-600 animate-scale-in soft-shadow-sm">
+          <svg class="w-5 h-5 bg-emerald-100 p-0.5 rounded-full" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          <span class="text-xs font-semibold">¡Suscrito con éxito! Código enviado a tu email.</span>
+        </div>
+
+        <!-- Form -->
+        <form id="newsletter-form" class="w-full max-w-md flex flex-col sm:flex-row gap-3">
+          <input
+            type="email"
+            required
+            placeholder="Tu dirección de correo electrónico..."
+            class="flex-1 px-5 py-3.5 rounded-full border border-slate-200/60 focus:outline-none focus:ring-2 focus:ring-glowy-pink-soft/50 focus:border-glowy-pink-soft/30 text-xs bg-white/80 soft-shadow-sm transition-all"
+          />
+          <button
+            type="submit"
+            class="px-7 py-3.5 bg-slate-900 hover:bg-glowy-pink-deep text-white text-[10px] font-bold uppercase tracking-widest rounded-full transition-all duration-300 active:scale-95 soft-shadow-md hover:soft-shadow-lg"
+          >
+            Suscribirse
+          </button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<script>
+  const form = document.getElementById('newsletter-form') as HTMLFormElement;
+  const success = document.getElementById('newsletter-success');
+
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const email = (form.querySelector('input[type="email"]') as HTMLInputElement)?.value;
+    if (email && email.includes('@')) {
+      form.classList.add('hidden');
+      success?.classList.remove('hidden');
+      success?.classList.add('flex');
+    }
+  });
+</script>

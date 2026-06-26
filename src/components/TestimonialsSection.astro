@@ -1,0 +1,55 @@
+---
+/**
+ * TestimonialsSection.astro — Infinite marquee of testimonial cards (CSS only)
+ */
+import { TESTIMONIALS } from '../data/products';
+
+// Duplicate for infinite loop
+const allTestimonials = [...TESTIMONIALS, ...TESTIMONIALS];
+---
+
+<section class="py-20 bg-gradient-to-b from-white via-glowy-pink-soft/8 to-[#faf7f8] relative overflow-hidden">
+  <!-- Ambient Glows -->
+  <div class="absolute right-[-10%] top-[20%] w-[350px] h-[350px] bg-glowy-pink-soft/10 rounded-full blur-[80px] pointer-events-none"></div>
+  <div class="absolute left-[-10%] bottom-[20%] w-[350px] h-[350px] bg-glowy-blue-light/10 rounded-full blur-[80px] pointer-events-none"></div>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-12 relative z-10">
+    <span class="text-xs font-bold uppercase tracking-[0.15em] text-glowy-pink-deep">Experiencias Glowy</span>
+    <h2 class="serif-title text-3xl sm:text-4xl text-slate-800 font-light mt-2">Lo Que Opinan Nuestras Clientas</h2>
+    <p class="text-slate-500 text-xs mt-2 font-light max-w-md mx-auto">Únete a miles de personas que han transformado su rutina con la sabiduría del K-Beauty.</p>
+  </div>
+
+  <!-- Testimonials Ticker -->
+  <div class="ticker-container w-full overflow-hidden relative py-4">
+    <div class="testimonials-track flex items-stretch space-x-6 py-2">
+      {allTestimonials.map((item, i) => (
+        <div class="w-[300px] sm:w-[320px] bg-white/70 backdrop-blur-md border border-white/60 p-6 rounded-[2rem] soft-shadow hover:soft-shadow-lg flex flex-col justify-between shrink-0 transition-all duration-300 hover:scale-[1.02] cursor-default">
+          <div>
+            <!-- Rating Stars -->
+            <div class="flex items-center space-x-1 mb-4 text-amber-400">
+              {[...Array(5)].map(() => (
+                <svg class="w-4 h-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              ))}
+            </div>
+            <p class="text-slate-600 text-xs font-light leading-relaxed italic mb-6">"{item.text}"</p>
+          </div>
+
+          <!-- Author Info -->
+          <div class="flex items-center space-x-3.5 border-t border-slate-100/60 pt-4">
+            <div class="w-10 h-10 rounded-full bg-slate-50 flex items-center justify-center text-lg soft-shadow-sm border border-slate-100/50">
+              {item.emoji}
+            </div>
+            <div>
+              <h4 class="font-semibold text-slate-800 text-xs">{item.name}</h4>
+              <div class="flex items-center space-x-1.5 text-[9px] text-slate-400 mt-0.5">
+                <span>{item.city}</span>
+                <span>•</span>
+                <span class="text-glowy-pink-deep font-semibold">{item.skin}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

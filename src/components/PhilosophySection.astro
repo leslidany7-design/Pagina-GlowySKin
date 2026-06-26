@@ -1,0 +1,63 @@
+---
+/**
+ * PhilosophySection.astro — K-Beauty benefit cards with <picture> optimization
+ */
+const benefits = [
+  {
+    title: 'Ingredientes Naturales',
+    desc: 'Fórmulas enriquecidas con centella asiática, té verde fermentado, ginseng y mucina para una nutrición sin químicos agresivos.',
+    iconPath: 'M6.5 6.5S8 1 12 1s5.5 5.5 5.5 5.5S22 8 22 12s-5.5 5.5-5.5 5.5S15 23 12 23s-5.5-5.5-5.5-5.5S2 16 2 12s4.5-5.5 4.5-5.5Z',
+    iconColor: 'text-emerald-500',
+    webp: '/images/natural-ingredients.webp',
+    avif: '/images/natural-ingredients.avif',
+  },
+  {
+    title: 'Hidratación Profunda',
+    desc: 'El corazón del cuidado coreano es crear capas de agua en la epidermis, logrando ese ansiado acabado jugoso y luminoso.',
+    iconPath: 'M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z',
+    iconColor: 'text-cyan-500',
+    webp: '/images/deep-hydration.webp',
+    avif: '/images/deep-hydration.avif',
+  },
+  {
+    title: 'Barrera de Piel Fuerte',
+    desc: 'Prevenimos la pérdida de agua transepidérmica regenerando la barrera de lípidos en lugar de pelar la piel con ácidos.',
+    iconPath: 'M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10',
+    iconPath2: 'm9 12 2 2 4-4',
+    iconColor: 'text-indigo-500',
+    webp: '/images/skin-barrier.webp',
+    avif: '/images/skin-barrier.avif',
+  },
+];
+---
+
+<section class="py-20 bg-gradient-to-b from-[#faf7f8] to-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    <span class="text-xs font-bold uppercase tracking-[0.15em] text-glowy-pink-deep">Sabiduría Coreana</span>
+    <h2 class="serif-title text-3xl sm:text-4xl text-slate-800 font-light mt-2 mb-12">Por Qué Cuidar Tu Piel Con K-Skincare</h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      {benefits.map((benefit) => (
+        <div class="group philosophy-card bg-white rounded-[2.5rem] border border-slate-100/60 flex flex-col overflow-hidden text-left">
+          <div class="w-full aspect-[16/11] overflow-hidden bg-slate-50 relative">
+            <picture>
+              <source srcset={benefit.avif} type="image/avif" />
+              <source srcset={benefit.webp} type="image/webp" />
+              <img src={benefit.webp} alt={benefit.title} class="w-full h-full object-cover philosophy-card-image" width="400" height="275" loading="lazy" />
+            </picture>
+            <div class="absolute bottom-4 right-4 p-3 bg-white/90 backdrop-blur-md rounded-2xl soft-shadow-sm border border-slate-100/50 flex items-center justify-center">
+              <svg class={`w-5 h-5 ${benefit.iconColor}`} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d={benefit.iconPath} />
+                {benefit.iconPath2 && <path d={benefit.iconPath2} />}
+              </svg>
+            </div>
+          </div>
+          <div class="p-7 sm:p-8 flex flex-col">
+            <h3 class="serif-title font-bold text-slate-800 text-lg mb-3">{benefit.title}</h3>
+            <p class="text-slate-500 text-xs font-light leading-relaxed">{benefit.desc}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

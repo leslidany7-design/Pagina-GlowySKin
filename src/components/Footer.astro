@@ -1,0 +1,76 @@
+---
+/**
+ * Footer.astro — Premium dark footer
+ */
+import { PAYMENT_METHODS, INSTAGRAM_URL } from '../data/products';
+---
+
+<footer class="bg-slate-900 text-white pt-16 pb-8">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
+
+    <div class="space-y-4">
+      <h3 class="serif-title text-xl font-semibold tracking-wide text-white">GLOWYSKIN</h3>
+      <p class="text-slate-400 text-xs font-light leading-relaxed max-w-xs">
+        Tu portal de confianza para el cuidado facial con raíces en Seúl y envíos nacionales directos. Belleza transparente, limpia y consciente.
+      </p>
+      <div class="flex space-x-3 pt-2">
+        <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" class="p-2.5 rounded-full bg-slate-800 hover:bg-glowy-pink-deep text-slate-300 hover:text-white transition-all duration-300" aria-label="Síguenos en Instagram">
+          <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+        </a>
+        <a href="https://facebook.com" class="p-2.5 rounded-full bg-slate-800 hover:bg-glowy-pink-deep text-slate-300 hover:text-white transition-all duration-300" aria-label="Síguenos en Facebook">
+          <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <div class="space-y-4">
+      <h4 class="text-[11px] font-bold uppercase tracking-[0.15em] text-glowy-pink-soft">Explorar Tienda</h4>
+      <ul class="space-y-2.5 text-xs font-light text-slate-400">
+        <li><a href="#catalogo" class="hover:text-white transition-colors duration-250">Limpiadores Faciales</a></li>
+        <li><a href="#catalogo" class="hover:text-white transition-colors duration-250">Tónicos & Esencias</a></li>
+        <li><a href="#catalogo" class="hover:text-white transition-colors duration-250">Sueros Activos</a></li>
+        <li><a href="#catalogo" class="hover:text-white transition-colors duration-250">Hidratantes Coreanas</a></li>
+        <li><a href="#quiz" class="hover:text-white transition-colors duration-250">Test Rutina de Piel</a></li>
+      </ul>
+    </div>
+
+    <div class="space-y-4">
+      <h4 class="text-[11px] font-bold uppercase tracking-[0.15em] text-glowy-pink-soft">Legales</h4>
+      <ul class="space-y-2.5 text-xs font-light text-slate-400">
+        <li><button data-legal="privacy" class="hover:text-white transition-colors duration-250 text-left">Política de Privacidad</button></li>
+        <li><button data-legal="terms" class="hover:text-white transition-colors duration-250 text-left">Términos y Condiciones</button></li>
+        <li><button data-legal="dmca" class="hover:text-white transition-colors duration-250 text-left">Aviso de DMCA</button></li>
+      </ul>
+    </div>
+
+    <div class="space-y-4">
+      <h4 class="text-[11px] font-bold uppercase tracking-[0.15em] text-glowy-pink-soft">Pagos Seguros</h4>
+      <p class="text-slate-400 text-xs font-light">Aceptamos tarjetas de débito, crédito y transferencias bancarias directas.</p>
+      <div class="flex gap-2 flex-wrap pt-1">
+        {PAYMENT_METHODS.map((pay) => (
+          <span class="px-3 py-1.5 rounded-xl bg-slate-800/80 text-[10px] font-semibold text-slate-300 border border-slate-700/60">{pay}</span>
+        ))}
+      </div>
+    </div>
+
+  </div>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-t border-slate-800 pt-8 flex flex-col sm:flex-row items-center justify-between text-slate-500 text-xs">
+    <span>&copy; {new Date().getFullYear()} GLOWYSKIN. Todos los derechos reservados.</span>
+    <span class="mt-2 sm:mt-0 flex items-center gap-1.5">
+      Diseño Premium K-Beauty
+      <svg class="w-3.5 h-3.5 text-glowy-pink-soft" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg>
+    </span>
+  </div>
+</footer>
+
+<script>
+  import { $legalModalType } from '../stores/cartStore';
+
+  document.querySelectorAll('[data-legal]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const type = (btn as HTMLElement).dataset.legal as 'privacy' | 'terms' | 'dmca';
+      $legalModalType.set(type);
+    });
+  });
+</script>

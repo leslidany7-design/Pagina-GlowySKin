@@ -1,0 +1,110 @@
+---
+/**
+ * Header.astro — Glassmorphism Navbar (static Astro)
+ * Interactive parts (search, cart badge, profile) handled by React islands
+ */
+---
+
+<header class="sticky top-0 z-40 w-full transition-all duration-300 glassmorphism border-b border-white/30" id="header">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+
+    <!-- Logo -->
+    <a href="/" class="flex items-center space-x-3 group">
+      <picture>
+        <source srcset="/images/logo-transparente.avif" type="image/avif" />
+        <source srcset="/images/logo-transparente.webp" type="image/webp" />
+        <img
+          src="/images/logo-transparente.webp"
+          alt="GLOWYSKIN Logo"
+          class="h-10 sm:h-12 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+          width="48"
+          height="48"
+          loading="eager"
+        />
+      </picture>
+      <span class="serif-title text-xl sm:text-2xl font-semibold tracking-wide text-slate-800 group-hover:text-glowy-pink-deep transition-colors duration-300">
+        GLOWYSKIN
+      </span>
+    </a>
+
+    <!-- Navigation Links (Desktop) -->
+    <nav class="hidden md:flex items-center space-x-1 text-xs uppercase tracking-widest font-semibold text-slate-500" aria-label="Navegación principal">
+      <a href="#catalogo" class="px-4 py-2 rounded-full hover:bg-glowy-pink-soft/10 hover:text-glowy-pink-deep transition-all duration-250">
+        Catálogo
+      </a>
+      <a href="#quiz" class="px-4 py-2 rounded-full hover:bg-glowy-pink-soft/10 hover:text-glowy-pink-deep transition-all duration-250 flex items-center space-x-1.5">
+        <span>Skin Quiz</span>
+        <svg class="w-3 h-3 text-glowy-pink-deep" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg>
+      </a>
+      <a href="#filosofia" class="px-4 py-2 rounded-full hover:bg-glowy-pink-soft/10 hover:text-glowy-pink-deep transition-all duration-250">
+        Nuestra Filosofía
+      </a>
+      <a href="#newsletter" class="px-4 py-2 rounded-full hover:bg-glowy-pink-soft/10 hover:text-glowy-pink-deep transition-all duration-250">
+        Newsletter
+      </a>
+    </nav>
+
+    <!-- Action Icons — React islands will hydrate these -->
+    <div id="header-actions" class="flex items-center space-x-2">
+      <!-- Search button -->
+      <button
+        data-action="toggle-search"
+        class="p-2.5 rounded-full hover:bg-glowy-pink-soft/10 text-slate-600 hover:text-glowy-pink-deep transition-all duration-250"
+        aria-label="Buscar productos"
+      >
+        <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+      </button>
+
+      <!-- Profile button -->
+      <button
+        data-action="toggle-profile"
+        class="p-2.5 rounded-full hover:bg-glowy-pink-soft/10 text-slate-600 hover:text-glowy-pink-deep transition-all duration-250 relative"
+        aria-label="Perfil de usuario"
+      >
+        <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        <span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full border-2 border-white bg-amber-400"></span>
+      </button>
+
+      <!-- Cart button -->
+      <button
+        data-action="toggle-cart"
+        class="p-2.5 rounded-full bg-linear-to-br from-glowy-pink-soft/15 to-glowy-lavender/20 hover:from-glowy-pink-soft/25 hover:to-glowy-lavender/30 text-slate-700 transition-all duration-300 relative flex items-center justify-center soft-shadow-sm hover:soft-shadow"
+        aria-label="Carrito de compras"
+      >
+        <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" x2="21" y1="6" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        <span id="cart-badge" class="hidden absolute -top-1 -right-1 bg-glowy-pink-deep text-white text-[10px] font-bold w-5 h-5 rounded-full items-center justify-center animate-scale-in">0</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<script>
+  import { $isSearchOpen, $isProfileOpen, $isCartOpen, $cart } from '../stores/cartStore';
+
+  // Wire up header action buttons
+  document.querySelector('[data-action="toggle-search"]')?.addEventListener('click', () => {
+    $isSearchOpen.set(!$isSearchOpen.get());
+  });
+  document.querySelector('[data-action="toggle-profile"]')?.addEventListener('click', () => {
+    $isProfileOpen.set(!$isProfileOpen.get());
+  });
+  document.querySelector('[data-action="toggle-cart"]')?.addEventListener('click', () => {
+    $isCartOpen.set(!$isCartOpen.get());
+  });
+
+  // Update cart badge reactively
+  const badge = document.getElementById('cart-badge');
+  $cart.subscribe((cart) => {
+    const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+    if (badge) {
+      if (count > 0) {
+        badge.textContent = String(count);
+        badge.classList.remove('hidden');
+        badge.classList.add('flex');
+      } else {
+        badge.classList.add('hidden');
+        badge.classList.remove('flex');
+      }
+    }
+  });
+</script>

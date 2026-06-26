@@ -1,0 +1,11 @@
+---
+/**
+ * CatalogSection.astro — Catalog section wrapping the CatalogCards React island
+ */
+import CatalogCards from './react/CatalogCards';
+---
+
+<span id="catalogo" class="block relative -top-24"></span>
+<section class="bg-white py-16 relative overflow-hidden">
+  <CatalogCards client:visible />
+</section>

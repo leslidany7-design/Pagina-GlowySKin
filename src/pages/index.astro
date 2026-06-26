@@ -1,0 +1,47 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import HeroSection from '../components/HeroSection.astro';
+import BrandsTicker from '../components/BrandsTicker.astro';
+import VideoSection from '../components/VideoSection.astro';
+import CatalogSection from '../components/CatalogSection.astro';
+import PhilosophySection from '../components/PhilosophySection.astro';
+import TestimonialsSection from '../components/TestimonialsSection.astro';
+import NewsletterSection from '../components/NewsletterSection.astro';
+import Footer from '../components/Footer.astro';
+import FloatingButtons from '../components/FloatingButtons.astro';
+
+// Interactive React islands
+import CartDrawer from '../components/react/CartDrawer';
+import ProfileDrawer from '../components/react/ProfileDrawer';
+import SearchBar from '../components/react/SearchBar';
+import Toast from '../components/react/Toast';
+---
+
+<Layout>
+  <!-- Global Toast Notifications -->
+  <Toast client:load />
+
+  <!-- Navbar -->
+  <Header />
+
+  <!-- Interactive Search Bar Drawer -->
+  <SearchBar client:load />
+
+  <!-- Main Content Sections -->
+  <HeroSection />
+  <BrandsTicker />
+  <VideoSection />
+  <CatalogSection />
+  <PhilosophySection />
+  <TestimonialsSection />
+  <NewsletterSection />
+
+  <!-- Footer & Contact buttons -->
+  <Footer />
+  <FloatingButtons />
+
+  <!-- Interactive Drawers -->
+  <CartDrawer client:load />
+  <ProfileDrawer client:load />
+</Layout>
