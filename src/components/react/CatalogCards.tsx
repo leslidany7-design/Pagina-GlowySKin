@@ -134,10 +134,10 @@ export default function CatalogCards() {
                   {/* Product Image */}
                   <CardHoverRevealMain className="w-full h-full bg-slate-50/10 flex items-center justify-center p-0">
                     <picture>
-                      <source srcSet={prod.image.replace('/Catalogo/', '/images/Catalogo/').replace('.png', '.avif').replace('.jpeg', '.avif').replace('.jpg', '.avif')} type="image/avif" />
-                      <source srcSet={prod.image.replace('/Catalogo/', '/images/Catalogo/').replace('.png', '.webp').replace('.jpeg', '.webp').replace('.jpg', '.webp')} type="image/webp" />
+                      <source srcSet={prod.imageAvif} type="image/avif" />
+                      <source srcSet={prod.image} type="image/webp" />
                       <img
-                        src={prod.image.replace('/Catalogo/', '/images/Catalogo/')}
+                        src={prod.image}
                         alt={prod.name}
                         className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
                         onError={(e) => {
