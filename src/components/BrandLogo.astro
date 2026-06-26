@@ -1,0 +1,82 @@
+---
+/**
+ * BrandLogo.astro — Renders premium vector-based SVG typography for brand logos.
+ * Uses custom SVGs matching the visual aesthetic of K-Beauty brands.
+ */
+interface Props {
+  name: string;
+}
+
+const { name } = Astro.props;
+---
+
+<div class="h-10 px-8 flex items-center justify-center grayscale opacity-50 hover:grayscale-0 hover:opacity-90 transition-all duration-300 pointer-events-none select-none">
+  {name === 'SKIN1004' && (
+    <svg width="120" height="24" viewBox="0 0 120 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <text x="0" y="18" font-family="'Inter', sans-serif" font-weight="900" font-size="18" letter-spacing="0.1em" fill="#0f172a">SKIN1004</text>
+    </svg>
+  )}
+
+  {name === 'Beauty of Joseon' && (
+    <svg width="180" height="24" viewBox="0 0 180 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <text x="0" y="18" font-family="'Playfair Display', Georgia, serif" font-weight="500" font-size="15" letter-spacing="0.05em" fill="#0f172a">Beauty of Joseon</text>
+    </svg>
+  )}
+
+  {name === 'ROUND LAB' && (
+    <svg width="130" height="24" viewBox="0 0 130 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="12" cy="12" r="8" stroke="#0f172a" stroke-width="2.5" fill="none" />
+      <text x="28" y="18" font-family="'Inter', sans-serif" font-weight="700" font-size="14" letter-spacing="0.05em" fill="#0f172a">ROUND LAB</text>
+    </svg>
+  )}
+
+  {name === 'mixsoon' && (
+    <svg width="100" height="24" viewBox="0 0 100 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <text x="0" y="18" font-family="'Inter', sans-serif" font-weight="400" font-size="18" letter-spacing="-0.02em" fill="#0f172a">mixsoon</text>
+    </svg>
+  )}
+
+  {name === 'celimax' && (
+    <svg width="100" height="24" viewBox="0 0 100 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <text x="0" y="18" font-family="'Inter', sans-serif" font-weight="500" font-size="17" letter-spacing="0.02em" fill="#0f172a">celimax</text>
+    </svg>
+  )}
+
+  {name === 'KSECRET' && (
+    <svg width="120" height="24" viewBox="0 0 120 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <text x="0" y="18" font-family="'Inter', sans-serif" font-weight="800" font-size="17" letter-spacing="0.15em" fill="#0f172a">KSECRET</text>
+    </svg>
+  )}
+
+  {name === 'Dr. Althea' && (
+    <svg width="130" height="24" viewBox="0 0 130 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <text x="0" y="18" font-family="'Playfair Display', Georgia, serif" font-weight="700" font-style="italic" font-size="17" letter-spacing="0.05em" fill="#0f172a">Dr. Althea</text>
+    </svg>
+  )}
+
+  {name === 'medicube' && (
+    <svg width="120" height="24" viewBox="0 0 120 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="0" y="4" width="16" height="16" rx="4" fill="#0f172a" />
+      <path d="M8 8V16M4 12H12" stroke="white" stroke-width="2" />
+      <text x="24" y="18" font-family="'Inter', sans-serif" font-weight="700" font-size="14" letter-spacing="0.05em" fill="#0f172a">medicube</text>
+    </svg>
+  )}
+
+  {name === 'ETUDE' && (
+    <svg width="100" height="24" viewBox="0 0 100 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <text x="0" y="18" font-family="'Playfair Display', Georgia, serif" font-weight="600" font-size="16" letter-spacing="0.12em" fill="#0f172a">ETUDE</text>
+    </svg>
+  )}
+
+  {name === 'APLB' && (
+    <svg width="90" height="24" viewBox="0 0 90 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <text x="0" y="18" font-family="'Inter', sans-serif" font-weight="800" font-size="18" letter-spacing="0.08em" fill="#0f172a">APLB</text>
+    </svg>
+  )}
+
+  {name === 'Purito SEOUL' && (
+    <svg width="160" height="24" viewBox="0 0 160 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <text x="0" y="18" font-family="'Inter', sans-serif" font-weight="600" font-size="14" letter-spacing="0.15em" fill="#0f172a">PURITO SEOUL</text>
+    </svg>
+  )}
+</div>

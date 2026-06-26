@@ -3,6 +3,7 @@
  * BrandsTicker.astro — Infinite marquee of brand logos (pure CSS)
  */
 import { BRANDS } from '../data/products';
+import BrandLogo from './BrandLogo.astro';
 ---
 
 <section class="relative py-12 z-20 overflow-hidden bg-gradient-to-b from-[#faf7f8] via-[#F0A6C5]/5 to-[#faf7f8] border-y border-white/40">
@@ -13,18 +14,14 @@ import { BRANDS } from '../data/products';
     <div class="animate-ticker flex items-center">
       {/* First set */}
       {BRANDS.map((brand) => (
-        <div class="flex-shrink-0 mx-6">
-          <span class="font-extrabold tracking-widest text-slate-800 text-xs opacity-65 hover:opacity-100 hover:scale-105 transition-all duration-300 select-none cursor-default whitespace-nowrap">
-            {brand}
-          </span>
+        <div class="flex-shrink-0">
+          <BrandLogo name={brand} />
         </div>
       ))}
       {/* Duplicate set for infinite loop */}
       {BRANDS.map((brand) => (
-        <div class="flex-shrink-0 mx-6">
-          <span class="font-extrabold tracking-widest text-slate-800 text-xs opacity-65 hover:opacity-100 hover:scale-105 transition-all duration-300 select-none cursor-default whitespace-nowrap">
-            {brand}
-          </span>
+        <div class="flex-shrink-0">
+          <BrandLogo name={brand} />
         </div>
       ))}
     </div>

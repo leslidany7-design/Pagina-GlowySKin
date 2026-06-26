@@ -5,6 +5,8 @@
 
 import { atom, computed } from 'nanostores'
 import type { Product, CartItem } from '../data/products'
+import { supabase } from '../lib/supabaseClient'
+
 
 // ── Cart State ──
 export const $cart = atom<CartItem[]>([])
@@ -107,9 +109,58 @@ export function toggleFavorite(productId: string, products: Product[]) {
 }
 
 // ── User Operations ──
-export function registerUser(name: string, email: string, avatarUrl: string) {
-  $userProfile.set({ name, email, avatarUrl, isRegistered: true })
-  showToast('¡Registro completo! Código de 10% OFF GLOWY10 activado.')
+export async function registerUser(name: string, email: string, avatarUrl: string) {
+  try {
+    const trimmedEmail = email.trim().toLowerCase()
+    // 1. Check if user already exists in Supabase
+    const { data: existingUser, error: selectError } = await supabase
+      .from('users')
+      .select('*')
+      .eq('email', trimmedEmail)
+      .maybeSingle()
+
+    if (selectError) throw selectError
+
+    if (existingUser) {
+      $userProfile.set({
+        name: existingUser.name,
+        email: existingUser.email,
+        avatarUrl: existingUser.avatar_url,
+        isRegistered: true,
+      })
+      showToast(`¡Bienvenida de vuelta, ${existingUser.name}! 10% OFF activo.`)
+      return { success: true, isNew: false }
+    }
+
+    // 2. Insert new user
+    const { data: newUser, error: insertError } = await supabase
+      .from('users')
+      .insert([
+        {
+          name: name.trim(),
+          email: trimmedEmail,
+          avatar_url: avatarUrl,
+        },
+      ])
+      .select()
+      .single()
+
+    if (insertError) throw insertError
+
+    $userProfile.set({
+      name: newUser.name,
+      email: newUser.email,
+      avatarUrl: newUser.avatar_url,
+      isRegistered: true,
+    })
+    showToast('¡Registro completo! Código de 10% OFF GLOWY10 activado.')
+    return { success: true, isNew: true }
+  } catch (err: any) {
+    console.warn('Supabase integration offline, saving local profile:', err.message)
+    $userProfile.set({ name, email, avatarUrl, isRegistered: true })
+    showToast('Guardado localmente (Registro offline)')
+    return { success: false, error: err.message }
+  }
 }
 
 export function logoutUser() {

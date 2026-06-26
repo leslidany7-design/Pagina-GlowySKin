@@ -27,11 +27,11 @@ const itemVariants = {
 }
 
 const navItems = [
-  { label: 'Mis Pedidos', href: '#catalogo', icon: <Truck className="h-full w-full" /> },
+  { label: 'Mis Pedidos', href: '/catalogo', icon: <Truck className="h-full w-full" /> },
   { label: 'Reseñas', href: '#', icon: <Star className="h-full w-full" /> },
   { label: 'Direcciones', href: '#', icon: <Home className="h-full w-full" /> },
-  { label: 'Vistos Recientemente', href: '#catalogo', icon: <Eye className="h-full w-full" /> },
-  { label: 'Favoritos', href: '#catalogo', icon: <Heart className="h-full w-full" /> },
+  { label: 'Vistos Recientemente', href: '/catalogo', icon: <Eye className="h-full w-full" /> },
+  { label: 'Favoritos', href: '/catalogo', icon: <Heart className="h-full w-full" /> },
   { label: 'Configuración', href: '#', icon: <Settings className="h-full w-full" />, isSeparator: true },
 ]
 
@@ -51,10 +51,14 @@ export default function ProfileDrawer() {
     setTimeout(() => setCopied(false), 2000)
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [loading, setLoading] = useState(false)
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (regName.trim() && regEmail.trim()) {
-      registerUser(regName.trim(), regEmail.trim(), selectedAv)
+      setLoading(true)
+      await registerUser(regName.trim(), regEmail.trim(), selectedAv)
+      setLoading(false)
     }
   }
 
@@ -169,8 +173,8 @@ export default function ProfileDrawer() {
                       </div>
                     </motion.div>
                     <motion.div variants={itemVariants} className="pt-2">
-                      <button type="submit" className="w-full py-3 bg-slate-900 hover:bg-glowy-pink-deep text-white text-xs font-semibold tracking-widest uppercase rounded-full shadow-md hover:shadow-lg transition-all active:scale-95">
-                        CREAR MI PERFIL · ACTIVAR 10% OFF
+                      <button type="submit" disabled={loading} className="w-full py-3 bg-slate-900 hover:bg-glowy-pink-deep text-white text-xs font-semibold tracking-widest uppercase rounded-full shadow-md hover:shadow-lg transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed">
+                        {loading ? 'Procesando...' : 'CREAR MI PERFIL · ACTIVAR 10% OFF'}
                       </button>
                     </motion.div>
                   </form>
